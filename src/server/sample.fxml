@@ -1,17 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.Controller">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0">
          <children>
-            <ListView layoutX="55.0" layoutY="91.0" prefHeight="600.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <SplitPane dividerPositions="0.1020066889632107" layoutX="63.0" layoutY="64.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <style>
+                        -fx-background-color: "#adbace";
+                        -fx-text-fill: white;
+                    </style>
+                     <children>
+                        <Label layoutX="91.0" layoutY="21.0" text="Port" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="87.0" layoutY="35.0" prefHeight="16.0" prefWidth="17.0" text="IP" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="176.0" layoutY="-72.0" orientation="VERTICAL" prefHeight="57.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="lblSetPort" layoutX="83.0" layoutY="11.0" text="P" />
+                        <Label fx:id="lblSetIP" layoutX="83.0" layoutY="31.0" text="IP" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <ListView layoutX="8.0" prefHeight="533.0" prefWidth="346.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
