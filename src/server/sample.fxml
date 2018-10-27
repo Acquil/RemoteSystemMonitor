@@ -6,16 +6,18 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.Controller">
+<SplitPane fx:id="mainWindow" dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.Controller">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0">
+    <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="200.0">
          <children>
-            <SplitPane dividerPositions="0.1020066889632107" layoutX="63.0" layoutY="64.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane fx:id="leftWindow" dividerPositions="0.1020066889632107" layoutX="63.0" layoutY="64.0" maxWidth="400" orientation="VERTICAL" prefHeight="600.0" prefWidth="348.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="100.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                     <style>
                         -fx-background-color: "#adbace";
                         -fx-text-fill: white;
@@ -38,26 +40,34 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ListView layoutX="8.0" prefHeight="533.0" prefWidth="346.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView id="connectedClientList" fx:id="connectedClientList" layoutX="8.0" maxHeight="-Infinity" onMouseClicked="#run" prefHeight="533.0" prefWidth="346.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
               </items>
             </SplitPane>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="500.0">
          <children>
-            <TabPane layoutX="45.0" layoutY="55.0" prefHeight="398.0" prefWidth="416.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="rightWindow" layoutX="45.0" layoutY="55.0" prefHeight="398.0" prefWidth="416.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab closable="false" text="Properties">
                   <content>
                       <AnchorPane minHeight="0.0">
-
-                      </AnchorPane>
+                           <children>
+                              <TitledPane animated="false" text="System Usage" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </TitledPane>
+                           </children></AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Screen">
+                <Tab fx:id="rightWindowScreenTab" text="Screen">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="ScreenShot" fitHeight="567.0" fitWidth="824.0" pickOnBounds="true" preserveRatio="true" />
+                           </children></AnchorPane>
                   </content>
                 </Tab>
               </tabs>
