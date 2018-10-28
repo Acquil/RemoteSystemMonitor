@@ -1,4 +1,4 @@
-package server;
+package TCP;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
