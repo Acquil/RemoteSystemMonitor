@@ -1,5 +1,8 @@
 package TCP;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +20,10 @@ import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 import javafx.fxml.FXML;
+import javafx.util.Duration;
 
 import javax.swing.*;
 
@@ -40,7 +45,7 @@ public class Controller {
     @FXML Label lblSysTotalMemory;
     @FXML Label lblSysFreeMemory;
     @FXML Label lblSysCPU;
-
+    @FXML ProgressBar pgRAM;
 
 
     private Integer port = 15001;
@@ -97,15 +102,6 @@ public class Controller {
 //                        ScreenShot.setImage(imgScene);
                         if (hostName.equals(connectedClientList.getSelectionModel().getSelectedItems().get(0))){
                             ScreenShot.setImage(imgScene);
-
-//                            lblSysUser.setText("Dummy");
-//                            lblSysOS.setText(input.getOSName());
-//                            lblSysVersion.setText(input.getOsVersion());
-//                            lblSysArch.setText(input.getOsArchitecture());
-                            String t = String.valueOf(input.getFreeMemory());
-                            lblSysFreeMemory.setText(t);
-//                            lblSysTotalMemory.setText(String.valueOf(input.getTotalMemory()));
-//                            lblSysCPU.setText(String.valueOf(input.getCpuLoad()));
                         }
                         System.gc();
 
@@ -169,7 +165,7 @@ public class Controller {
         ScreenShot.fitWidthProperty().bind(rightWindow.widthProperty());
 
         new Thread(connAccepter).start();
-        new Thread(backgroundUpdater).start();
+//        new Thread(backgroundUpdater).start();
 
         connectedClientList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
@@ -178,7 +174,7 @@ public class Controller {
                 System.out.println("Selected item: " + newValue);
                 ScreenShot.setImage(screenMap.get(newValue));
 
-                lblSysUser.setText("Dummy");
+                lblSysUser.setText(dataMap.get(newValue).getOsUser());
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -194,25 +190,21 @@ public class Controller {
             }
         });
 
-        Platform.runLater(
-                () -> {
-                    while(true){
-                        System.out.println("Background Task");
-                        String selectedValue = connectedClientList.getSelectionModel().getSelectedItems().get(0);
-                        if(selectedValue==null)
-                            continue;
-                        lblSysFreeMemory.setText(String.valueOf(dataMap.get(selectedValue).getFreeMemory()));
-                        lblSysTotalMemory.setText(String.valueOf(dataMap.get(selectedValue).getTotalMemory()));
-                        lblSysCPU.setText(String.valueOf(dataMap.get(selectedValue).getCpuLoad()));
-                        try {
-                            sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
+        Timeline bgUpdater = new Timeline(new KeyFrame(Duration.millis(1000),actionEvent -> {
+            System.out.println("Background Task");
+            String selectedValue = connectedClientList.getSelectionModel().getSelectedItems().get(0);
+            if(selectedValue != null){
+                Double free = Double.valueOf(dataMap.get(selectedValue).getFreeMemory())/1000000;
+                Double total = Double.valueOf(dataMap.get(selectedValue).getTotalMemory())/1000000;
 
+                lblSysFreeMemory.setText(String.valueOf(free) + " MB");
+                lblSysTotalMemory.setText(String.valueOf(total) + " MB");
+                lblSysCPU.setText(String.valueOf(dataMap.get(selectedValue).getCpuLoad()));
+                pgRAM.setProgress(((total-free)/total));
+            }
+        }));
+        bgUpdater.setCycleCount(Animation.INDEFINITE);
+        bgUpdater.play();
     }
 
     @FXML

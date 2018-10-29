@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="mainWindow" dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TCP.Controller">
+<SplitPane fx:id="mainWindow" dividerPositions="0.29797979797979796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" minWidth="600.0" prefHeight="602.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TCP.Controller">
   <items>
     <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="200.0">
          <children>
@@ -80,6 +81,7 @@
                                           <Label fx:id="lblSysTotalMemory" layoutX="143.0" layoutY="25.0" text="-" />
                                           <Label fx:id="lblSysFreeMemory" layoutX="143.0" layoutY="55.0" text="-" />
                                           <Label fx:id="lblSysCPU" layoutX="143.0" layoutY="85.0" text="-" />
+                                          <ProgressBar fx:id="pgRAM" layoutX="143.0" layoutY="113.0" prefWidth="200.0" progress="0.0" />
                                        </children>
                                     </AnchorPane>
                                 </content>

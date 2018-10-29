@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Data implements Serializable {
     private static final long serialVersionUID = -123456L;
+    private String osUser;
     private String osName;
     private String osVersion;
     private String osArchitecture;
@@ -23,6 +24,7 @@ public class Data implements Serializable {
 
 
     public Data(){
+        osUser = System.getProperty("user.name");
         osName = System.getProperty("os.name");
         osVersion = System.getProperty("os.version");
         osArchitecture = System.getProperty("os.arch");
@@ -56,5 +58,9 @@ public class Data implements Serializable {
 
     public Double getCpuLoad() {
         return cpuLoad;
+    }
+
+    public String getOsUser() {
+        return osUser;
     }
 }
