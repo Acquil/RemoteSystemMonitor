@@ -16,12 +16,9 @@ public class Data implements Serializable {
     private Double cpuLoad;
     private ImageIcon screen;
 
-//    public Data(String s1, String s2, String s3){
-//        osName = s1;
-//        osVersion = s2;
-//        osArchitecture = s3;
-//    }
 
+    private String rxData;
+    private String txData;
 
     public Data(){
         osUser = System.getProperty("user.name");
@@ -62,5 +59,21 @@ public class Data implements Serializable {
 
     public String getOsUser() {
         return osUser;
+    }
+
+    public String getRxData() {
+        return rxData;
+    }
+
+    public void setRxData(String rxData) {
+        this.rxData = rxData;
+    }
+
+    public String getTxData() {
+        return txData;
+    }
+
+    public void setTxData(String txData) {
+        this.txData = txData;
     }
 }

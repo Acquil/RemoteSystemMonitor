@@ -46,30 +46,16 @@ public class Controller {
     @FXML Label lblSysFreeMemory;
     @FXML Label lblSysCPU;
     @FXML ProgressBar pgRAM;
-
+    @FXML Label lblUpload;
+    @FXML Label lblDownload;
 
     private Integer port = 15001;
     private ObservableList<String> connectedClients = FXCollections.observableArrayList();
     private Map<String,Data> dataMap = new HashMap<>();
     private Map<String, javafx.scene.image.Image> screenMap = new HashMap<>();
-
-
-
-
-    private Task backgroundUpdater = new Task<Void>() {
-        @Override
-        public Void call(){
-
-            while(true){
-                System.out.println("Background Task");
-                String selectedValue = connectedClientList.getSelectionModel().getSelectedItems().get(0);
-                lblSysFreeMemory.setText(String.valueOf(dataMap.get(selectedValue).getFreeMemory()));
-                lblSysTotalMemory.setText(String.valueOf(dataMap.get(selectedValue).getTotalMemory()));
-                lblSysCPU.setText(String.valueOf(dataMap.get(selectedValue).getCpuLoad()));
-//                sleep(500);
-            }
-        }
-    };
+    private Map<String, String> initialUploadMap = new HashMap<>();
+    private Map<String, String> initialDownloadMap = new HashMap<>();
+    private Map<String, Boolean> downloadCrossed = new HashMap<>();
 
     class handleClient implements Runnable{
 
@@ -85,9 +71,7 @@ public class Controller {
             while(true){
                 try {
                     ObjectInputStream ois;
-//                    Rectangle clientScreenDim = null;
                     ois = new ObjectInputStream(sk.getInputStream());
-//                    clientScreenDim = (Rectangle) ois.readObject();
 
                     while (true) {
 
@@ -99,7 +83,11 @@ public class Controller {
                         javafx.scene.image.Image imgScene = SwingFXUtils.toFXImage(bimg,null);
                         dataMap.put(hostName, input);
                         screenMap.put(hostName, imgScene);
-//                        ScreenShot.setImage(imgScene);
+
+                        initialDownloadMap.put(hostName,input.getRxData());
+                        initialUploadMap.put(hostName,input.getTxData());
+                        downloadCrossed.put(hostName,false);
+
                         if (hostName.equals(connectedClientList.getSelectionModel().getSelectedItems().get(0))){
                             ScreenShot.setImage(imgScene);
                         }
@@ -137,7 +125,7 @@ public class Controller {
                 }
 
             } catch (Exception e) {
-//                e.printStackTrace();
+                e.printStackTrace();
             }
             finally {
                 ex.shutdownNow();
@@ -201,6 +189,23 @@ public class Controller {
                 lblSysTotalMemory.setText(String.valueOf(total) + " MB");
                 lblSysCPU.setText(String.valueOf(dataMap.get(selectedValue).getCpuLoad()));
                 pgRAM.setProgress(((total-free)/total));
+
+//
+//                Integer down = //Integer.valueOf(nowDownload) -
+//                        Integer.valueOf(initialDownloadMap.get(selectedValue));
+//                Integer up = //Integer.valueOf(nowUpload) -
+//                        Integer.valueOf(initialUploadMap.get(selectedValue));
+
+                lblUpload.setText(String.valueOf(dataMap.get(selectedValue).getTxData()));
+                lblDownload.setText(String.valueOf(dataMap.get(selectedValue).getRxData()));
+
+//                if(down > 1 && downloadCrossed.get(selectedValue).equals(false)){
+//                    javafx.scene.control.PopupControl notificationPane = new PopupControl();
+////                    notificationPane.se
+//                    downloadCrossed.put(selectedValue,true);
+////                    notificationPane.getStyleClass().add(NotificationPane.STYLE_CLASS_DARK);
+//                }
+
             }
         }));
         bgUpdater.setCycleCount(Animation.INDEFINITE);
@@ -208,9 +213,6 @@ public class Controller {
     }
 
     @FXML
-    private void run(){
-//        String selected = connectedClientList.getSelectionModel().getSelectedItems().get(0);
-//        ScreenShot.setImage(data.get(selected));
-    }
+    private void run(){}
 
 }
